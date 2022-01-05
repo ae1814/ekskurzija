@@ -39,8 +39,8 @@ module.exports = {
     end: function() {
         pool.getConnection(function(err : any, connection : any) {
             if(err) {
-                    //console.log(err)
-                    return callbackify(err);
+                    console.log(err)
+                    return null;
                 }
                 connection.release();
           });

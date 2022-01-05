@@ -23,7 +23,7 @@ Za vzpostavitev nove povezave ter opravljanje z samo bazo bomo uporabljali aplik
 <br /><br />
 `5. (Točka 3 ponavadi vsebuje pripravo povezave (preveri pravilnost Hostname in Port vrednosti), če ne, sledite navodilom.) Dodaj novo povezavo (MySql Connections +), ter dopolni/popravi vnosna polja glede na spodnjo sliko. Kot vidimo na sliki je Username = root, Password = root2021, Hostname = 127.0.0.1, Port = 3306. Če želite katero od vrednosti Hostname ali Port spremeniti, je potrebno spremeniti tudi ./ekskurzija_backend/.env datoteko (polja DB_HOST za Hostname, DB_PORT za Port).`![Image not found!](./general_images/mysql.png?raw=true "MySqlConnection")
 <br /><br />
-`6. Spodnja slika prikazuje kreiranje uporabnika (userja), s katerim se bomo kasneje, iz backend strežnika, avtenticirali za dostop do baze. Kakrkšnokoli drugačno ime ali geslo od navedenega je prav tako potrebno posodobiti   ./ekskurzija_backend/.env datoteko (polja DB_USER za Login Name, DB_PASS za Password). Poleg imena in gesla je (predvsem) potrebno paziti da sta enaki tudi polji Authentication Type in Limit to Hosts Matching. Zaporedje potrebnih klikov prikazujejo oštevilčena mesta na sliki!`![Image not found!](./general_images/mysql_user.png?raw=true "MySqlConnection")
+`6. Spodnja slika prikazuje kreiranje uporabnika (userja), s katerim se bomo kasneje, iz backend strežnika, avtenticirali za dostop do baze. Kakrkšnokoli drugačno ime ali geslo od navedenega, je prav tako potrebno posodobiti   ./ekskurzija_backend/.env datoteko (polja DB_USER za Login Name, DB_PASS za Password). Poleg imena in gesla je (predvsem) potrebno paziti da sta enaki tudi polji Authentication Type in Limit to Hosts Matching. Zaporedje potrebnih klikov prikazujejo oštevilčena mesta na sliki!`![Image not found!](./general_images/mysql_user.png?raw=true "MySqlConnection")
 <br /><br />
 Ko imamo pripravljeno povezavo do MySql serverja, moramo dodati shemo, ki se nahaja v mysql mapi (./mysql/db_schema.sql). V MySql Workbench okolju:
 <br /><br />
@@ -81,4 +81,8 @@ Za potrebe frontend aplikacije, odprimo ločen terminal (postavljen v direktorij
 `23. local_directory\ekskurzija\ekskurzija_frontend> ng serve`
 <br /><br />
 Sedaj imamo vse tri komponente (sql, backend, frontend) vzpostavljene in zagnane. Privzet naslov frontend komponente se nahaja na naslovu `http://localhost:4200`. Če nam angular avtomatsko ponudi drug naslov (IP ali port), je za dostop do zalednega (backend) dela potrebna posodobitev datoteke ./ekskurzija_backend/.env.NodeJS backend strežnik ima omejen dostop - do njega lahko dostopajo le frontend aplikacije z izvornimi naslovi, ki so zapisani v ./ekskurzija_backend/.env datoteki pod spremenljivko ALLOWED_ORIGIN (ALLOWED_ORIGIN=http://localhost:4200). Če se frontend aplikacija prestavi na drug naslov ali dostopa preko drugega porta, je potrebno pravilno popraviti ALLOWED_ORIGIN spremenljivko.
+
+## Debuging
+
+Če spletna stran ne deluje pravilno, je to lahko le zaradi različnih operacijskih sistemov, v komunikaciji frontend-backend ter predvsem backend-sql. Če se problem nahaja na frontend strani, so napake vidne v brskalnikovi konzoli (F12). Na backend strani error loge vidimo z ukazom `local_directory\ekskurzija\ekskurzija_backend>  yarn log`.
 
