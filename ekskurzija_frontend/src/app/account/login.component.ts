@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         {
           this.router.navigate([this.returnUrl]);
         }
-      }).catch(error => {this.alertService.error(error);
+      }).catch(error => {this.alertService.error("Napaka pri prijavi! Preverite, če ste pravilno vpisali podatke.");
         this.loading = false;});
   }
 

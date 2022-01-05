@@ -51,7 +51,7 @@ Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktor
 <br /><br />
 `12. local_directory\ekskurzija\ekskurzija_backend> npm install`
 <br /><br />
-`13. local_directory\ekskurzija\ekskurzija_backend> ./node_modules/.bin/pm2 install typescript`
+`13. local_directory\ekskurzija\ekskurzija_backend> "./node_modules/.bin/pm2" install typescript`
 <br /><br />
 `14. local_directory\ekskurzija\ekskurzija_backend> yarn serve`
 <br /><br />
