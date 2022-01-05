@@ -36,17 +36,15 @@ Za uspešno vzpostavitev backend NodeJS okolja je potrebno namestiti NodeJS pake
 <br /><br />
 `8. Namestitev NodeJS preko spletne strani https://nodejs.org/en/download/`. 
 <br /><br />
-Po uspešni namestitvi pridobimo potrebna ukaza - npm in node!
+Po uspešni namestitvi pridobimo potrebna ukaza - npm in node. Potrditev uspešne namestitve -  ukaza `npm -v` ter `node -v` vrneta trenutno verzijo!
 <br /><br />
-Naslednji korak je namestitev potrebnih knjižnic in modulov. Če v točkah 9-12 naletite na napako pri izvedbi ukazov, je verjetno le-ta povezana z yarn ali pm2 (yarn not a command...). V tem primeru je potrebno ukaza (oziroma le potreben ukaz) namestiti: 
+Naslednji korak je namestitev potrebnih knjižnic in modulov. Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktoriju `ekskurzija`:
 <br /><br />
-`9. local_directory> npm install --global yarn`
+`9. local_directory\ekskurzija> cd ekskurzija_backend`
 <br /><br />
-`10. local_directory> npm install pm2 -g`
+`10. local_directory\ekskurzija> npm install --global yarn`
 <br /><br />
-Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktoriju `ekskurzija`:
-<br /><br />
-`11. local_directory\ekskurzija> cd ekskurzija_backend`
+`11. local_directory\ekskurzija> npm install --global pm2`
 <br /><br />
 `12. local_directory\ekskurzija\ekskurzija_backend> npm install`
 <br /><br />
@@ -54,8 +52,7 @@ Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktor
 <br /><br />
 `14. local_directory\ekskurzija\ekskurzija_backend> yarn serve`
 <br /><br />
-Backend aplikacija bi sedaj morala delovati! 
-Po uspešni namestitvi, ponovite korak 11, oziroma korak, kjer se je napaka pojavila.
+Backend aplikacija bi sedaj morala delovati (ukaz `yarn log` izpiše trenutne zapise strežnika, če je zadnja izpisana vrstica `Server listening on port 5201!` se je strežnik pravilno zagnal). Na določenih sistemih pm2 rad nagaja, če pride do težav pri zagonu aplikacije, ponovimo točko 11 - 14! 
 <br /><br />
 Nastavitve okolja strežnika (razvojno, ...) ter nastavitve naslova preko katerega je strežnik dostopen, se nahajajo v datoteki ./ekskurzija_backend/.env. Spremenljivka NODE_ENV=dev shranjuje trenutno okolje (trenutno je razvojno),  NODE_PORT=5201 specificira trenutna vrata skozi katera je strežnik dostopen (nastavljen na 5201), NODE_HOST=0.0.0.0 pa trenutni naslov (nastavljen na 0.0.0.0 - localhost). Glede na trenutne nastavitve, je strežnik dostopen na naslovu `http://0.0.0.0:5201`. V primeru spremembe naslova ali porta, je potrebna sprememba spremenljivke `apiUrl` v datoteki ./ekskurzija_frontend/src/environments/environment.ts.
 <br />
