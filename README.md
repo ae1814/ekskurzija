@@ -8,9 +8,9 @@ V naslednjih sekcijah so po vrsti opisani koraki, kako zagnati vse dele aplikaci
 <br />
 Naveden primer opisuje navodila za namestitev preko terminala (konzole), za kar potrebujete veljaven `git` ukaz. Druge možnosti so na primer kloniranje repozitorija preko GitHub desktop aplikacije. 
 <br />
-V terminalu (Windows uporabniki - `gitforwindows.org`) se postavite v direktorij, kjer želite namestiti aplikacijo (`<curr_dir>`). Ukaz v terminalu (pazi na spremembo `<your_username>`):
+V terminalu (Windows uporabniki - `gitforwindows.org`) se postavite v direktorij, kjer želite namestiti aplikacijo (<curr_dir>). Ukaz v terminalu (pazi na spremembo <your_username>):
 <br />
-2. `git clone https://github.com/<your_username>/ekskurzija.git`
+2. git clone https://github.com/<your_username>/ekskurzija.git
 
 ## MySql
 
