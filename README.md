@@ -57,15 +57,23 @@ Backend strežnik bi sedaj moral delovati! V primeru da server ni zagnan in vam 
 Po uspešni namestitvi, ponovite korak 11, oziroma korak, kjer se je napaka pojavila.
 <br />
 Nastavitve okolja strežnika (razvojno, ...) ter nastavitve naslova preko katerega je strežnik dostopen, se nahajajo v datoteki ./ekskurzija_backend/.env. Spremenljivka NODE_ENV=dev shranjuje trenutno okolje (trenutno je razvojno),  NODE_PORT=5201 specificira trenutna vrata skozi katera je strežnik dostopen (nastavljen na 5201), NODE_HOST=0.0.0.0 pa trenutni naslov (nastavljen na 0.0.0.0 - localhost). Glede na trenutne nastavitve, je strežnik dostopen na naslovu `http://0.0.0.0:5201`. V primeru spremembe naslova ali porta, je potrebna sprememba spremenljivke `apiUrl` v datoteki ./ekskurzija_frontend/src/environments/environment.ts.
-
+<br />
+Ostali ukazi (stop, delete, list trenutne instance serverja):
+<br />
+`14. yarn stop -> Ustavi trenutno zagnane strežnike`
+`15. yarn delete -> Izbriše trenutno zagnane strežnike`
+`16. yarn log -> Prikaže izpise (loge) strežnika`
+`17. yarn list-all -> Izpiše trenutno zagnane strežnike`
+<br />
 ## Build in Zagon FRONTEND dela aplikacije
 
 Za potrebe frontend aplikacije, odprimo ločen terminal ter izvedimo naslednje ukaze:
 <br />
-`14. cd local_path/ekskurzija/ekskurzija_frontend  - V terminalu se postavimo v direktorij ekskurzija_frontend`
+`18. cd local_path/ekskurzija/ekskurzija_frontend  -> V terminalu se postavimo v direktorij ekskurzija_frontend`
 <br />
-`15. npm install`
+`19. npm install`
 <br />
-`16. ng serve`
+`20. ng serve`
 <br />
 Sedaj imamo vse tri komponente (sql, backend, frontend) vzpostavljene in zagnane. Privzet naslov frontend komponente se nahaja na naslovu `http://localhost:4200`. Če nam angular avtomatsko ponudi drug naslov (IP ali port), je za dostop do zalednega (backend) dela potrebna posodobitev datoteke ./ekskurzija_backend/.env.NodeJS backend strežnik ima omejen dostop - do njega lahko dostopajo le frontend aplikacije z izvornimi naslovi, ki so zapisani v ./ekskurzija_backend/.env datoteki pod spremenljivko ALLOWED_ORIGIN (ALLOWED_ORIGIN=http://localhost:4200). Če se frontend aplikacija prestavi na drug naslov ali dostopa preko drugega porta, je potrebno pravilno popraviti ALLOWED_ORIGIN spremenljivko.
+<br />
