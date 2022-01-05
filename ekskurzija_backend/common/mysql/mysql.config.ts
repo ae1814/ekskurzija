@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-require('dotenv').config({ path: '/Users/aljazerzin/OneDrive/ŠOLA/IOI/SEMINAR 2/ekskurzija/.env'});
+require('dotenv').config({ path: './.env'});
 import { callbackify } from 'util';
 var pool = mysql.createPool({
     host     : process.env.DB_HOST,

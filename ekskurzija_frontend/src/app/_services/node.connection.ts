@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders, HttpRequest  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-//require('dotenv').config({ path: 'C:/Users/erzina/Desktop/WORK CENTER/.env'});
 import  { IssuesMain } from '../common/objects/IssuesMain.object'
 import  { IssuesAll } from '../common/objects/IssuesAll.object'
 import { RadioButton } from '../common/objects/RadioButton.object';
@@ -15,7 +14,7 @@ export class NodeAPI {
     connection_string_filter_request = 'http://localhost:5201/filter_request';
     status : RadioButton[];
     constructor(private http: HttpClient) {}
-    
+
     // Ta mora sprejet se parametre za query in na podlagi tega poklice prav request
     get_details_issue_by_id(id)
     {
@@ -53,8 +52,8 @@ export class NodeAPI {
        //let headers = new HttpHeaders().set('password', 'secreterzinc');
         return new Promise<[]>((resolve, reject) => {
             this.http.get(this.connection_string_issues + "/main/filtered?type="+ filters.type.join(',') + "&status="+filters.status.join(',')
-                           + "&search="+filters.search.join(",") + "&priority=" + filters.priority.join(",") + "&created_at="+filters.created_at  + 
-                           "&created_from="+filters.created_from  + "&created_to="+filters.created_to  + "&modified_at="+filters.modified_at  + 
+                           + "&search="+filters.search.join(",") + "&priority=" + filters.priority.join(",") + "&created_at="+filters.created_at  +
+                           "&created_from="+filters.created_from  + "&created_to="+filters.created_to  + "&modified_at="+filters.modified_at  +
                            "&modified_from="+filters.modified_from  + "&modified_to="+filters.modified_to /*, { headers: headers}*/).subscribe((data : any) => {
               if (data != null) {
                   resolve(data);
@@ -72,7 +71,7 @@ export class NodeAPI {
         return new Promise<RadioButton[]>((resolve, reject) => {
             this.http.request('get', this.connection_string_filter_request + "/status_all"/*, { headers: headers}*/).subscribe((data : RadioButton[]) => {
               if (data != null) {
-                
+
                   resolve(data);
               } else {
                 reject('No data exists!');
@@ -88,7 +87,7 @@ export class NodeAPI {
         return new Promise<RadioButton[]>((resolve, reject) => {
             this.http.request('get', this.connection_string_filter_request + "/type_all"/*, { headers: headers}*/).subscribe((data : RadioButton[]) => {
               if (data != null) {
-                
+
                   resolve(data);
               } else {
                 reject('No data exists!');
@@ -104,7 +103,7 @@ export class NodeAPI {
         return new Promise<RadioButton[]>((resolve, reject) => {
             this.http.request('get', this.connection_string_filter_request + "/priority_all"/*, { headers: headers}*/).subscribe((data : RadioButton[]) => {
               if (data != null) {
-                
+
                   resolve(data);
               } else {
                 reject('No data exists!');

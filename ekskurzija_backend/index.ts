@@ -1,10 +1,10 @@
 import { routes } from './routes/routes';
-require('dotenv').config({ path: '/Users/aljazerzin/OneDrive/ŠOLA/IOI/SEMINAR 2/ekskurzija/.env'});
+require('dotenv').config({ path: './.env'});
 const express = require('express')
 const app = express();
 
 app.use('/', (req : any, res : any, next : any) => {
-    var allowedOrigins = ['http://localhost:4200'];
+    var allowedOrigins = [process.env.ALLOWED_ORIGIN];
     var origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1)
          res.header('Access-Control-Allow-Origin', '*');
@@ -22,6 +22,7 @@ app.use('/', (req : any, res : any, next : any) => {
         next();
     }
 });
+
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: "50mb"}));
