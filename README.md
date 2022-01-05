@@ -1,15 +1,21 @@
 # Ekskurzija
 
 Repozitorij Ekskurzija vsebuje datoteke za spletno aplikacijo. Mapa /ekskurzija-frontend vsebuje Angular frontend aplikacijo. Mapa /ekskurzija-backend vsebuje NodeJS backend (server) aplikacijo. V mapi /mysql se nahaja skripta za vzpostavitev sql sheme v mysql okolju. 
-V naslednjih sekcijah so po vrsti opisani koraki, kako zagnati vse dele aplikacije.
+V naslednjih sekcijah so po vrsti opisani koraki, kako zagnati vse dele aplikacije (ključni koraki so oštevilčeni).
 
 ## Kopiranje repozitorija
-V terminalu se postavite v direktorij, kjer želite namestiti aplikacijo (`<curr_dir>`). Ukazi v terminalu si sledijo:
-1. `git clone https://github.com/ae1814/ekskurzija.git`
+1. `Fork` repository
+Naveden primer opisuje navodila za namestitev preko terminala (konzole), za kar potrebujete veljaven `git` ukaz. Druge možnosti so na primer kloniranje repozitorija preko GitHub desktop aplikacije. 
+V terminalu (Windows uporabniki - `gitforwindows.org`) se postavite v direktorij, kjer želite namestiti aplikacijo (`<curr_dir>`). Ukaz v terminalu (pazi na spremembo `<your_username>`):
+2. `git clone https://github.com/<your_username>/ekskurzija.git`
 
-## Code scaffolding
+## MySql
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Aplikacija uporablja MySql sistem za shranjevanje podatkov. Prvi korak je inštalacija in priprava MySql Serverja:
+3. Naloži iz spletne strani `https://dev.mysql.com/downloads/mysql/` ter sledi navodilom inštalacije
+Za vzpostavitev nove povezave ter opravljanje z samo bazo bomo uporabljali aplikacijo `MySQL Workbench`:
+4. Naloži `MySQL Workbench` iz strani `https://dev.mysql.com/downloads/workbench/`
+5. Dodaj novo povezavo (MySql Connections +), ter dopolni/popravi vnosna polja glede na spodnjo sliko. Kot vidimo na sliki je `Username = root`, `Password = root2021`, `Hostname = 127.0.0.1`, `Port = 3306`. Če želite katero od navedenih vrednosti spremeniti, je potrebno spremeniti tudi `.env` datoteko (polja DB_HOST za Hostname, DB_USER za Username, DB_PORT za Port ter DB_PASS za Password).![Image not found!](./general_images/mysql.png?raw=true "MySqlConnection")
 
 ## Build
 
