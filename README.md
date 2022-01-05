@@ -7,7 +7,7 @@ V naslednjih sekcijah so po vrsti opisani koraki, kako zagnati vse dele aplikaci
 <br /><br />
 Naveden primer opisuje navodila za namestitev preko terminala (konzole), za kar potrebujete veljaven git ukaz. Druge možnosti so na primer kloniranje repozitorija preko GitHub desktop aplikacije. 
 <br /><br />
-V terminalu (Windows uporabniki - gitforwindows.org) se postavite v direktorij, kjer želite namestiti aplikacijo. Ukaz v terminalu:
+V terminalu (Windows uporabniki - gitforwindows.org) se postavimo v direktorij, kjer želimo namestiti aplikacijo. Ukaz v terminalu:
 <br /><br />
 `2. local_directory> git clone https://github.com/ae1814/ekskurzija.git`
 
@@ -21,9 +21,9 @@ Za vzpostavitev nove povezave ter opravljanje z samo bazo bomo uporabljali aplik
 <br /><br />
 `4. Naloži (če je prejšnji korak ni) MySQL Workbench iz strani https://dev.mysql.com/downloads/workbench/`.
 <br /><br />
-`5. (Točka 3 ponavadi vsebuje pripravo povezave (preveri pravilnost Hostname in Port vrednosti), če ne, sledite navodilom.) Dodaj novo povezavo (MySql Connections +), ter dopolni/popravi vnosna polja glede na spodnjo sliko. Kot vidimo na sliki je Username = root, Password = root2021, Hostname = 127.0.0.1, Port = 3306. Če želite katero od vrednosti Hostname ali Port spremeniti, je potrebno spremeniti tudi ./ekskurzija_backend/.env datoteko (polja DB_HOST za Hostname, DB_PORT za Port).`![Image not found!](./general_images/mysql.png?raw=true "MySqlConnection")
+`5. (Točka 3 ponavadi vsebuje pripravo povezave (preveri pravilnost Hostname in Port vrednosti), če ne, sledimo navodilom.) Dodaj novo povezavo (MySql Connections +), ter dopolni/popravi vnosna polja glede na spodnjo sliko. Kot vidimo na sliki je Username = root, Password = root2021, Hostname = 127.0.0.1, Port = 3306. Če želimo katero od vrednosti Hostname ali Port spremeniti, je potrebno spremeniti tudi ./ekskurzija_backend/.env datoteko (polja DB_HOST za Hostname, DB_PORT za Port).`![Image not found!](./general_images/mysql.png?raw=true "MySqlConnection")
 <br /><br />
-`6. Spodnja slika prikazuje kreiranje uporabnika (userja), s katerim se bomo kasneje, iz backend strežnika, avtenticirali za dostop do baze. Če določite drugačno ime ali geslo od navedenega, je potrebno posodobiti ./ekskurzija_backend/.env datoteko (polja DB_USER za Login Name, DB_PASS za Password). Poleg imena in gesla je (predvsem) potrebno paziti da sta enaki tudi polji Authentication Type in Limit to Hosts Matching. Zaporedje potrebnih klikov prikazujejo oštevilčena mesta na sliki!`![Image not found!](./general_images/mysql_user.png?raw=true "MySqlConnection")
+`6. Spodnja slika prikazuje kreiranje uporabnika (userja), s katerim se bomo kasneje, iz backend strežnika, avtenticirali za dostop do baze. Če določimo drugačno ime ali geslo od navedenega, je potrebno posodobiti ./ekskurzija_backend/.env datoteko (polja DB_USER za Login Name, DB_PASS za Password). Poleg imena in gesla je (predvsem) potrebno paziti da sta enaki tudi polji Authentication Type in Limit to Hosts Matching. Zaporedje potrebnih klikov prikazujejo oštevilčena mesta na sliki!`![Image not found!](./general_images/mysql_user.png?raw=true "MySqlConnection")
 <br /><br />
 Ko imamo pripravljeno povezavo do MySql serverja, moramo dodati shemo, ki se nahaja v mysql mapi (./mysql/db_schema.sql). V MySql Workbench okolju:
 <br /><br />
@@ -40,7 +40,7 @@ Za uspešno vzpostavitev backend NodeJS okolja je potrebno namestiti NodeJS pake
 <br /><br />
 Po uspešni namestitvi pridobimo potrebna ukaza - npm in node. Potrditev uspešne namestitve -  ukaza `npm -v` ter `node -v` vrneta trenutno verzijo!
 <br /><br />
-Naslednji korak je namestitev potrebnih knjižnic in modulov. Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktoriju `ekskurzija`:
+Naslednji korak je namestitev potrebnih knjižnic in modulov. Nadaljna navodila predvidevajo, da smo v terminalu (konzoli) trenutno v direktoriju `ekskurzija`:
 <br /><br />
 `10. local_directory\ekskurzija> cd ekskurzija_backend`
 <br /><br />
