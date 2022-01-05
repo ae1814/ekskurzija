@@ -4,8 +4,8 @@ Repozitorij Ekskurzija vsebuje datoteke za spletno aplikacijo. Mapa /ekskurzija-
 V naslednjih sekcijah so po vrsti opisani koraki, kako zagnati vse dele aplikacije.
 
 ## Kopiranje repozitorija
-V terminalu se postavite v direktorij, kjer želite namestiti aplikacijo (<curr_dir>). Ukazi v terminalu si sledijo:
-1. git clone https://github.com/ae1814/ekskurzija.git
+V terminalu se postavite v direktorij, kjer želite namestiti aplikacijo (`<curr_dir>`). Ukazi v terminalu si sledijo:
+1. `git clone https://github.com/ae1814/ekskurzija.git`
 
 ## Code scaffolding
 
