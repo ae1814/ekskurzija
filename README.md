@@ -74,7 +74,9 @@ Za potrebe frontend aplikacije, odprimo ločen terminal (postavljen v direktorij
 <br /><br />
 `20. local_directory\ekskurzija\ekskurzija_frontend> npm install`
 <br /><br />
-`21. local_directory\ekskurzija\ekskurzija_frontend> ng serve`
+`21. local_directory\ekskurzija\ekskurzija_frontend> npm install -g @angular/cli`
+<br /><br />
+`22. local_directory\ekskurzija\ekskurzija_frontend> ng serve`
 <br /><br />
 Sedaj imamo vse tri komponente (sql, backend, frontend) vzpostavljene in zagnane. Privzet naslov frontend komponente se nahaja na naslovu `http://localhost:4200`. Če nam angular avtomatsko ponudi drug naslov (IP ali port), je za dostop do zalednega (backend) dela potrebna posodobitev datoteke ./ekskurzija_backend/.env.NodeJS backend strežnik ima omejen dostop - do njega lahko dostopajo le frontend aplikacije z izvornimi naslovi, ki so zapisani v ./ekskurzija_backend/.env datoteki pod spremenljivko ALLOWED_ORIGIN (ALLOWED_ORIGIN=http://localhost:4200). Če se frontend aplikacija prestavi na drug naslov ali dostopa preko drugega porta, je potrebno pravilno popraviti ALLOWED_ORIGIN spremenljivko.
 
