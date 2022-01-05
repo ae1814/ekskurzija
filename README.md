@@ -52,7 +52,7 @@ Naslednji korak je namestitev potrebnih knjižnic in modulov. Nadaljna navodila 
 <br /><br />
 `14. local_directory\ekskurzija\ekskurzija_backend> yarn serve`
 <br /><br />
-Backend aplikacija bi sedaj morala delovati (ukaz `yarn log` izpiše trenutne zapise strežnika, če je zadnja izpisana vrstica `Server listening on port 5201!` se je strežnik pravilno zagnal). Na določenih sistemih pm2 rad nagaja, če pride do težav pri zagonu aplikacije, ponovimo točko 11 - 14! 
+Backend aplikacija bi sedaj morala delovati (ukaz `yarn log` izpiše trenutne zapise aplikacije (strežnika), če je zadnja izpisana vrstica `Server listening on port 5201!` se je strežnik pravilno zagnal). Na določenih sistemih pm2 rad nagaja, če pride do težav pri zagonu aplikacije, ponovimo točko 11 - 14! 
 <br /><br />
 Nastavitve okolja strežnika (razvojno, ...) ter nastavitve naslova preko katerega je strežnik dostopen, se nahajajo v datoteki ./ekskurzija_backend/.env. Spremenljivka NODE_ENV=dev shranjuje trenutno okolje (trenutno je razvojno),  NODE_PORT=5201 specificira trenutna vrata skozi katera je strežnik dostopen (nastavljen na 5201), NODE_HOST=0.0.0.0 pa trenutni naslov (nastavljen na 0.0.0.0 - localhost). Glede na trenutne nastavitve, je strežnik dostopen na naslovu `http://0.0.0.0:5201`. V primeru spremembe naslova ali porta, je potrebna sprememba spremenljivke `apiUrl` v datoteki ./ekskurzija_frontend/src/environments/environment.ts.
 <br />
