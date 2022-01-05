@@ -38,7 +38,16 @@ Za uspešno vzpostavitev backend NodeJS okolja je potrebno namestiti NodeJS pake
 `8. Namestitev NodeJS preko spletne strani https://nodejs.org/en/download/`. 
 <br />
 Po uspešni namestitvi pridobimo potrebna ukaza - npm in node!
-
+<br />
+Preden se posvetimo pogonu aplikacije, moramo naložiti še 2 paketa:
+<br />
+`10. npm install --global yarn`
+`11. npm install pm2 -g`
+Naslednji korak je namestitev potrebnih knjižnic in modulov. Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktoriju `ekskurzija`:
+<br />
+`9. cd ekskurzija_backend'
+`10. npm install`
+`9. `
 
 ## Build in Zagon FRONTEND dela aplikacije
 

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  
   "scripts": {
-    "serve": "./node_modules/.bin/pm2 start pm2.config.js --watch",
+    "serve": "tsc index.ts -w & pm2 start pm2.config.js --watch",
     "delete": "pm2 delete index",
     "stop": "pm2 stop index",
     "log": "pm2 log index",
