@@ -1,0 +1,4 @@
+ekskurzija_backend/node_modules
+ekskurzija_frontend/node_modules
+ekskurzija_frontend/.*
+ekskurzija_backend/.*

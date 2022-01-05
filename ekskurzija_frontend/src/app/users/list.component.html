@@ -1,0 +1,49 @@
+<h1 *ngIf="user.type == 0"  style="margin-bottom: 50px;color: rgb(25, 108, 175);">Učenci <a style="margin-left:20px" routerLink="add"  *ngIf="user.type == 0" class="btn btn-sm btn-outline-dark mb-2">Dodaj učenca</a></h1>
+
+<!--<form  [formGroup]="razredForm" *ngIf="user.type == 0">
+  <p>
+    <select class="selectpicker" class="form-select form-select-sm" (change)="submit()" formControlName="razred">
+      <option  [selected]="true">Izberi razred</option>
+      <option *ngFor="let class of user.class; let i = index" [ngValue]="class">{{class}}</option>
+    </select>
+  </p>
+
+</form>-->
+
+  <div *ngIf="user.type == 0"  class="dropdown" style="margin-bottom:20px">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+      Izberi razred
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" *ngFor="let class of user.class; let i = index"  (click)="submit(class)" >{{class}}</a>
+    </div>
+  </div>
+
+<h5 *ngIf="current_class != ''" style="color:rgb(25, 108, 175);">Učenci {{current_class}}. razreda</h5>
+<table class="table table-striped" *ngIf="flag">
+    <thead>
+        <tr>
+            <th style="width: 30%">Ime in priimek</th>
+            <th style="width: 30%">Email</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{user.idperson}}" style="background-color:rgb(25, 108, 175);" class="btn btn-sm btn-primary mr-1">Uredi</a>
+                <button (click)="deleteUser(user.idperson)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!user.isDeleting">Izbriši</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!users">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

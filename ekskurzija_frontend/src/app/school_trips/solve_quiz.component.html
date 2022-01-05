@@ -1,0 +1,212 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+
+.container {
+    /*background-color: rgb(25, 108, 175);;*/
+    color: rgb(25, 108, 175);;
+    border-radius: 10px;
+    padding: 20px;
+    margin : auto;
+    font-family: 'Montserrat', sans-serif;
+}
+#img_q {
+  max-width:500px;
+  max-height:500px;
+}
+#img_a {
+  max-width:300px;
+  max-height:300px;
+}
+.container>p {
+    font-size: 32px
+}
+
+.question_questin {
+  margin-bottom:40px
+}
+
+.options {
+    position: relative;
+    padding-left: 40px
+}
+
+#options {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    cursor: pointer
+}
+
+.options #inputRadio {
+    opacity: 0
+}
+
+.checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: rgb(25, 108, 175);;
+    border: 1px solid #ddd;
+    border-radius: 50%
+}
+
+.options input:checked~.checkmark:after {
+    display: block
+}
+
+.options .checkmark:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark {
+    background: #21bf73;
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark:after {
+    transform: translate(-50%, -50%) scale(1)
+}
+
+.btn-primary {
+    background-color: rgb(25, 108, 175);;
+    color: #ddd;
+    border: 1px solid #ddd
+}
+
+.btn-primary:hover {
+    background-color: #21bf73;
+    border: 1px solid #21bf73
+}
+
+.btn-success {
+    padding: 5px 25px;
+    background-color: #21bf73
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    /*background: rgb(25, 108, 175);*/
+    color: rgb(25, 108, 175);
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    /*background: rgb(25, 108, 175);*/
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+@media(max-width:576px) {
+    .question {
+        width: 100%;
+        word-spacing: 2px
+    }
+}
+</style>
+<div class="wrapper">
+  <nav id="sidebar">
+    <div  class="sidebar-header" style="border-bottom: 5px solid rgb(25, 108, 175);">
+        <h3 >Izberi vprašanje</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+      <li  *ngFor="let question of questions; let i = index" style="margin:auto"><a (click)="move_to_question(i)" >{{i+1}}. vprašanje</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <h1 style="color:rgb(25, 108, 175);margin-bottom:10px">Rešen kviz ekskurzije {{schoolTrip.name}}</h1>
+
+    <div *ngIf="selectedFile" class="img-preview-container" style="margin: 10px;">
+
+      <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+          [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+      </div>
+
+      <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+        <div class="img-spinning-circle"></div>
+      </div>
+
+      <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+      <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"  style="border-radius: 4px; border-color: rgb(25, 108, 175);border-style: solid;">
+      <div class="container mt-sm-5 my-1" center>
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class=" question_questin py-2 h5"><b style="font-size: 30px;">Vprašanje {{current_question + 1}}: {{questions[current_question].question}}</b>
+                    <br>
+                    <img style="display: block;margin: 10px auto;"  id="img_q" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'question_files'] != undefined" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'question_files']"/></div>
+            <div class="" id="">
+              <label id="options" class="options" *ngFor="let i of n_curr_answers">
+                <p *ngIf="review_quiz && i == solving_quiz_data.answers[current_question] &&  questions[current_question].correct_answer == solving_quiz_data.answers[current_question]" style="color:#21bf73">{{i+1}}. {{questions[current_question].answers[i]}}</p>
+                <p *ngIf="review_quiz && i == solving_quiz_data.answers[current_question] &&  questions[current_question].correct_answer != solving_quiz_data.answers[current_question]" style="color:red">{{i+1}}. {{questions[current_question].answers[i]}}</p>
+                <p *ngIf="review_quiz &&  i != solving_quiz_data.answers[current_question]">{{i+1}}. {{questions[current_question].answers[i]}}</p>
+                <p *ngIf="!review_quiz">{{questions[current_question].answers[i]}}</p>
+                <input *ngIf="!review_quiz"  id="inputRadio" type="radio"  formControlName="given_answer" [value]="i" >
+                <span *ngIf="!review_quiz"  class="checkmark"></span>
+              <img id="img_a" style="margin: 20px;border: 5px solid #21bf73;" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] != undefined && review_quiz && i == solving_quiz_data.answers[current_question] &&  questions[current_question].correct_answer == solving_quiz_data.answers[current_question]" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i]">
+              <img id="img_a" style="margin: 20px;border: 5px solid red;" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] != undefined && review_quiz && i == solving_quiz_data.answers[current_question] &&  questions[current_question].correct_answer != solving_quiz_data.answers[current_question]" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i]">
+              <img id="img_a" style="margin: 20px" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] != undefined && review_quiz &&  i != solving_quiz_data.answers[current_question]" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i]">
+              <img id="img_a" style="margin: 20px" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] != undefined && !review_quiz" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i]">
+
+            </label>
+            <p *ngIf="review_quiz" style="color: #21bf73"><b style="border-bottom: solid #21bf73">Pravilni odgovor: {{questions[current_question].correct_answer + 1}}</b></p>
+            </div>
+        </div>
+          <div class="d-flex align-items-center pt-3">
+            <div *ngIf="current_question != 0" id="prev">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              <button  *ngIf="current_question != 0" class="btn btn-success" (click)="move_to_question(current_question-1)">Nazaj</button> </div>
+            <div *ngIf="current_question != questions.length - 1" (click)="move_to_question(current_question+1)" class="ml-auto mr-sm-5">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              <button class="btn btn-success">Naprej</button> </div>
+        </div>
+      </div>
+    </form>
+    <div  style="white-space: nowrap; margin-top: 10px;">
+      <a *ngIf="!review_quiz" (click)="updateSolvingQuiz()" routerLink="../" class="btn btn-sm btn-outline-success mr-1"  style="width:100px;">Shrani kviz</a>
+      <a *ngIf="!review_quiz"  (click)="submitQuizSolutions()" routerLink="../" class="btn btn-sm btn-outline-success mr-1"  style="width:100px;">Oddaj kviz</a>
+      <a  *ngIf="!teacherMode" routerLink="../../../" class="btn btn-sm btn-outline-secondary mr-1"  style="width:100px;">Nazaj</a>
+      <a  *ngIf="teacherMode" routerLink="../../../../" class="btn btn-sm btn-outline-secondary mr-1"  style="width:100px;">Nazaj</a>
+    </div>
+  </div>
+</div>

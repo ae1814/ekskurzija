@@ -1,0 +1,253 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+input[type=text] {
+  border: none;
+  border-bottom: 2px solid rgb(25, 108, 175);
+}
+.container {
+   /*background-color: rgba(116, 230, 250, 0.171);*/
+    color: rgb(25, 108, 175);
+    border-radius: 10px;
+    border-color: rgb(25, 108, 175);;
+    padding: 20px;
+    margin : auto;
+    font-family: 'Montserrat', sans-serif;
+}
+.customButtons {
+   /*background-color: rgba(116, 230, 250, 0.171);*/
+    color: rgb(25, 108, 175);
+    border-radius: 10px;
+    border-color: rgb(25, 108, 175);
+    margin : 5px;
+
+    font-family: 'Montserrat', sans-serif;
+}
+#img_q {
+  max-width:500px;
+  max-height:500px;
+}
+#img_a {
+  max-width:300px;
+  max-height:300px;
+}
+.container>p {
+    font-size: 32px
+}
+
+.question_questin {
+  margin-bottom:40px
+}
+
+.options {
+    position: relative;
+    padding-left: 40px
+}
+
+#options {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    cursor: pointer
+}
+
+.options #inputRadio {
+    opacity: 0
+}
+
+.checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: rgb(25, 108, 175);
+    border: 1px solid rgb(25, 108, 175);
+    border-radius: 50%
+}
+
+.options input:checked~.checkmark:after {
+    display: block
+}
+
+.options .checkmark:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark {
+    background: #21bf73;
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark:after {
+    transform: translate(-50%, -50%) scale(1)
+}
+
+.btn-primary {
+    background-color: rgb(25, 108, 175);
+    color: rgb(25, 108, 175);
+    border: 1px solid rgb(25, 108, 175);
+}
+
+.btn-primary:hover {
+    background-color: #21bf73;
+    border: 1px solid #21bf73
+}
+
+.btn-success {
+    padding: 5px 25px;
+    background-color: #21bf73
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    /*background: rgb(25, 108, 175);*/
+    color: rgb(25, 108, 175);
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    /*background: rgb(25, 108, 175);*/
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+
+@media(max-width:576px) {
+    .question {
+        width: 100%;
+        word-spacing: 2px
+    }
+}
+</style>
+<div class="wrapper">
+  <nav id="sidebar">
+        <div  class="sidebar-header" style="border-bottom: 5px solid rgb(25, 108, 175);">
+            <h3 >Izberi vprašanje</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li  *ngFor="let question of questions; let i = index" style="margin:auto"><a (click)="move_to_question(i)" >{{i+1}}. vprašanje</a></li>
+        </ul>
+    </nav>
+  <div class="container">
+    <h1 style="color: rgb(25, 108, 175);">Uredi kviz za ekskurzijo {{schoolTrip.name}}</h1>
+
+    <div *ngIf="selectedFile" class="img-preview-container">
+
+      <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+          [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+      </div>
+
+      <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+        <div class="img-spinning-circle"></div>
+      </div>
+
+      <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+      <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+    </div>
+
+    <div *ngIf="teacherMode && quiz.teacher_comment != null" style="margin: 20px;"><p style="color: red;">Zadnja oddaja je bila pomankljiva. Vaš komentar: <b>{{quiz.teacher_comment}}</b></p></div>
+
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" style="border-radius: 4px; border-color: rgb(25, 108, 175);border-style: solid;">
+      <div class="container mt-sm-5 my-1" center>
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class=" question_questin py-2 h5"><b style="font-size: 30px;">Vprašanje {{current_question + 1}}: <input type="text" formControlName="question" style="width:500px; margin-left:20px"/></b>
+              <label *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question]['idqa']+'-'+'question_files'] == undefined"
+                for="question_files" class="btn  btn-outline-success" style="cursor: pointer;margin-left:10px">Naloži sliko</label>
+              <a *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'question_files'] != undefined"
+                class="btn btn-outline-danger" style="margin:10px; color:red" (click)="removeFile('question_files', -1)">Izbriši sliko</a>
+
+              <input *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'question_files'] == undefined"
+                      #question_files
+                    style="visibility:hidden;"
+                    id="question_files"
+                    type="file"
+                    accept="image/*"
+                    (change)="processFile(question_files)" value="add" />
+                    <br>
+                    <img style="display: block;margin: 10px auto;" id="img_q" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'question_files'] != undefined" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'question_files']"/></div>
+            <div class="" id="">
+              <label id="options" class="options" *ngFor="let i of n_curr_answers">
+                <input id="inputRadio" type="radio" [checked]="questions[current_question].correct_answer == i" formControlName="correct_answer" [value]="i" >
+                <span class="checkmark"></span><input type="text" formControlName="text_answer_{{i}}" />
+                <a class="btn btn-outline-danger"  style="margin:10px; color:red" (click)="delete_answer(i)">Izbriši odgovor</a>
+                <label *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] == undefined"
+                for="answer_files_{{i}}" class="btn  btn-outline-success" style="cursor: pointer;margin-left:10px">Naloži sliko</label>
+
+                <input  *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] == undefined"
+                      #answer_files
+                      style="visibility:hidden;"
+                      id="answer_files_{{i}}"
+                      type="file"
+                      accept="image/*"
+                      (change)="processFile(answer_files)" value="add">
+              <img style="margin: 20px;" id="img_a" *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] != undefined" [src]="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i]">
+              <a *ngIf="images_indicator[quiz.idquiz+'-'+questions[current_question].idqa+'-'+'answer_files_'+i] != undefined"
+              class="btn btn-outline-danger"  style="margin:10px; color:red" (click)="removeFile('answer_files_', i)">Izbriši sliko</a>
+            </label>
+              <a class="btn btn-outline-secondary" style="border:solid" (click)="add_answer()">Dodaj odgovor</a>
+
+            </div>
+        </div>
+          <div class="d-flex align-items-center pt-3">
+            <div *ngIf="current_question != 0" id="prev">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              <button  *ngIf="current_question != 0" class="btn btn-success" (click)="move_to_question(current_question-1)">Nazaj</button> </div>
+            <div *ngIf="current_question != questions.length - 1" (click)="move_to_question(current_question+1)" class="ml-auto mr-sm-5">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              <button class="btn btn-success">Naprej</button> </div>
+        </div>
+      </div>
+    </form>
+    <div  style="white-space: nowrap;margin-top: 10px;">
+      <a *ngIf="!teacherMode" (click)="updateQuizQA()" routerLink="../../../" class="btn btn-sm btn-outline-success mr-1" style="width:100px;">Shrani kviz</a>
+      <a *ngIf="teacherMode" (click)="updateQuizQA()" routerLink="../../../../" class="btn btn-sm btn-outline-success mr-1" style="width:120px;">Shrani popravke</a>
+      <a *ngIf="teacherMode" (click)="zavrniOddajo()" class="btn btn-sm btn-outline-danger mr-1" style="color:red" style="width:100px;">Zavrni oddajo</a>
+      <a *ngIf="teacherMode"  routerLink="../../../../" class="btn btn-sm btn-outline-secondary mr-1" style="width:100px;">Nazaj</a>
+      <a *ngIf="!teacherMode"  routerLink="../../../" class="btn btn-sm btn-outline-secondary mr-1" style="width:100px;">Nazaj</a>
+    </div>
+    <div id="addComment" style="visibility: hidden; margin:10px">
+      <h4 style="color:rgb(25, 108, 175)">Obrazložitev zavrnitve kviza:</h4>
+      <textarea id="comment" name="comment" rows="4" cols="50" style="color: rgb(25, 108, 175);"></textarea><br>
+      <a *ngIf="teacherMode" (click)="zavrniInKomentiraj()" class="btn btn-sm btn-outline-danger mr-1" style="color:red">Potrdi zavrnitev</a>
+    </div>
+  </div>
+</div>

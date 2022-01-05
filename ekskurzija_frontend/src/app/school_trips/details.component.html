@@ -1,0 +1,126 @@
+
+<h1 style="color: rgb(25, 108, 175);">{{schoolTrip.name}}</h1>
+
+<p style="color: rgb(25, 108, 175);">{{schoolTrip.summary}}</p>
+<!--<h5 *ngIf="user.type == 0" >Vaši razredi : {{schoolTrip.class}}</h5>
+
+<h5 *ngIf="user.type == 1" >Razred: {{schoolTrip.class}}</h5>
+
+<h6 *ngIf="user.type == 0" >{{schoolTrip.n_questions}} zastavljenih vprašanj na kviz!</h6>
+<h6 *ngIf="user.type == 1"  style="color: red;">Pri kvizu potrebnih natanko {{schoolTrip.n_questions}} vprašanj!</h6>-->
+
+<div *ngIf="user.type == 0"  style="white-space: nowrap">
+  <a routerLink="../edit/{{schoolTrip.idschool_trip}}" style="background-color: rgb(25, 108, 175);" class="btn btn-sm btn-primary mr-1">Uredi</a>
+  <button  style="margin-left:5px" *ngIf="user.type == 0" (click)="deleteSchoolTrip()" class="btn btn-sm btn-danger btn-delete-user">
+    <span>Izbriši</span>
+  </button>
+
+</div>
+<div *ngIf="user.type == 1 && grade_for_user == -1"  style="white-space: nowrap; margin-top: 100px;">
+  <h3 style="margin-top:10px; color:rgb(25, 108, 175)">Kreiranje kviza</h3>
+
+  <a *ngIf="!quizCreated && !quizSubmited" (click)="createQuiz()"  class="btn btn-sm btn-outline-secondary mr-1">Ustvari kviz</a>
+  <a *ngIf="quizCreated && !quizSubmited" (click)="editQuiz(-1)" class="btn btn-sm btn-secondary mr-1" style="color:white">Uredi kviz</a>
+  <a *ngIf="quizCreated && !quizSubmited" (click)="deleteQuiz()" class="btn btn-sm btn-danger mr-1" style="color:white">Izbriši kviz</a>
+  <a *ngIf="quizCreated && !quizSubmited"   (click)="submitQuiz()" class="btn btn-sm btn-success mr-1" style="color:white">Oddaj kviz</a>
+  <p *ngIf="quizCreated && quizSubmited &&  quiz.grade  == null" style="color:rgb(25, 108, 175)">Kviz ste že oddali!</p>
+  <p *ngIf="quiz != undefined && !quiz.submited && quiz.teacher_comment != null"  style="color: red;"><b>Vaš kviz je bil zavrnjen! Komentar pedagoga:</b><br>{{quiz.teacher_comment}}</p>
+  <p  *ngIf="quiz != undefined && quiz.submited && quiz.grade  != null" style="color: red;">Za izdelan kviz ste dobili oceno <b>{{quiz.grade}}</b>!</p>
+  <h3 style="margin-top:50px; color:rgb(25, 108, 175)">Kvizi za reševanje</h3>
+  <div *ngFor="let quiz_to_solve of quizes_to_solve; let i = index" style="margin-top:10px; white-space: nowrap">
+    <a *ngIf="quiz_to_solve.score == null" routerLink="./quizes/{{quiz_to_solve.qs_idquiz}}/solve_quiz" class="btn btn-sm btn-secondary mr-1">Reši kviz {{i+1}}</a>
+    <p *ngIf="quiz_to_solve.score != null"  style="color:rgb(25, 108, 175)" >{{i + 1}}. kviz: {{quiz_to_solve.score}}/{{quiz_to_solve.answers.length}} pravilnih odgovor, oziroma {{quizes_to_solve_percent[i]}}% uspešnost!<a style="margin-left:10px"  routerLink="./quizes/{{quiz_to_solve.qs_idquiz}}/check_quiz" class="btn btn-sm btn-success mr-1">Preglej kviz {{i+1}}</a></p>
+  </div>
+</div>
+<h3 *ngIf="grade_for_user != -1" style="margin-top:50px; color:#21bf73">Končna ocena za ekskurzijo: {{grade_for_user}}</h3>
+
+<div *ngIf="user.type == 0" style="margin-top:50px">
+  <h3  style="color: rgb(25, 108, 175);">Pregled kvizov</h3>
+  <div class="dropdown" style="margin-bottom:30px">
+    <button class="btn btn-secondary dropdown-toggle"  type="button" style="width:158px" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+      Izberi razred
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+      <a class="dropdown-item" *ngFor="let class of school_trip_classes; let i = index" (click)="submitClass(class)" >{{class}}</a>
+    </div>
+  </div>
+
+  <h5 *ngIf="current_class != ''" style="color: rgb(25, 108, 175);">IZDELANI KVIZI - Učenci {{current_class}}. razreda</h5>
+  <table class="table table-striped" *ngIf="flag">
+      <thead>
+          <tr>
+              <th style="width: 25%">Ime in priimek</th>
+              <th style="width: 30%">Email</th>
+              <th style="width: 20%">Oddano v ocenjevanje</th>
+              <th style="width: 5%">Ocena</th>
+              <th style="width: 20%"></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let user of quizes_by_trip_classes">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td *ngIf="user.submited" style="color:green">Da</td>
+              <td *ngIf="!user.submited" style="color:red">Ne</td>
+              <td id="grade_{{user.studentID}}"  contenteditable="true" style="background-color: white;">{{user.grade}}</td>
+              <td style="white-space: nowrap; float:right">
+                  <a  style="color:white" (click)="editQuiz(user.studentID)" class="btn btn-sm btn-secondary mr-1">Preglej kviz</a>
+                  <a style="color:white" (click)="add_grade_in_quiz(user.idquiz, user.studentID)" class="btn btn-sm btn-success mr-1">Shrani oceno</a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <a style="margin-top:10px; color:white"  *ngIf="flag" (click)="add_quizes_for_solving()" class="btn btn-sm btn-danger mr-1">Oddaj kvize v reševanje</a>
+
+  <h5 *ngIf="current_class != ''" style="margin-top:50px; color: rgb(25, 108, 175);">REŠEVANJE KVIZOV - Učenci {{current_class}}. razreda</h5>
+  <table class="table table-striped" *ngIf="flag">
+      <thead>
+          <tr>
+              <th style="width: 25%">Ime in priimek</th>
+              <th style="width: 30%">Email</th>
+              <th style="width: 20%">Score</th>
+              <th style="width: 5%">Ocena</th>
+              <th style="width: 20%"></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let user of solving_quizes_by_trip_classes">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td *ngIf="user.score != null">{{user.score}}/{{schoolTrip.n_questions}}</td>
+              <td *ngIf="!(user.score != null)" style="color:red">Nerešeno</td>
+              <td id="grade_1_{{user.qs_iduser}}"  contenteditable="true" style="background-color: white;">{{user.grade}}</td>
+              <td style="white-space: nowrap; float:right">
+                <a style="margin-left:10px; color:white"  routerLink="./quizes/{{user.qs_idquiz}}/check_quiz/{{user.qs_iduser}}" class="btn btn-sm btn-secondary mr-1">Preglej kviz</a>
+                  <a style="color:white" (click)="add_grade_in_quiz_solving(user.idquiz_solutions, user.qs_iduser)" class="btn btn-sm btn-success mr-1">Shrani oceno</a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <a style="margin-top:10px; color:white"  *ngIf="flag && grades.length == 0" (click)="calc_final_grade_and_store()" class="btn btn-sm btn-danger mr-1">Izračunaj končne ocene</a>
+  <h5 *ngIf="grades.length > 0 && current_class != ''" style="margin-top:50px; color: rgb(25, 108, 175);">KONČNE OCENE - Učenci {{current_class}}. razreda</h5>
+  <table class="table table-striped" *ngIf="flag && grades.length > 0 && current_class != ''">
+      <thead>
+          <tr>
+              <th style="width: 35%">Ime in priimek</th>
+              <th style="width: 40%">Email</th>
+              <th style="width: 5%">Končna ocena</th>
+              <th style="width: 20%"></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let grade_ of grades">
+              <td>{{grade_.name}}</td>
+              <td>{{grade_.email}}</td>
+              <td id="grade_123_{{grade_.idgrades}}"  contenteditable="true" style="background-color: white;">{{grade_.grade}}</td>
+              <td style="white-space: nowrap; float:right">
+                  <a style="color:white;" (click)="update_grade(grade_.idgrades)" class="btn btn-sm btn-success mr-1">Shrani oceno</a>
+                  <a style="color:white;" (click)="delete_grade(grade_.idgrades)" class="btn btn-sm btn-danger mr-1">Izbriši oceno</a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+
+

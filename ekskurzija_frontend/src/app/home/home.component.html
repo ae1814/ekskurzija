@@ -1,0 +1,33 @@
+<div class="p-4">
+      <h3 style="color:rgb(25, 108, 175);margin-bottom:50px; text-align:center">Pozdravljeni {{user.name}}, v spodnji tabeli je prikazan seznam vaših ekskurzij!</h3>
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 30%">Ime ekskurzije</th>
+                <th style="width: 30%">Razredi</th>
+                <th *ngIf="user.type == 0" style="width: 30%">Opis</th>
+                <th *ngIf="user.type == 1" style="width: 30%">Status</th>
+                <th style="width: 10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let trip of school_trips">
+                <td>{{trip.name}}</td>
+                <td>{{trip.class}}</td>
+                <td *ngIf="user.type == 0" >{{trip.summary | slice:0:30}}</td>
+                <td *ngIf="user.type == 1 && submited_quizes[trip.idschool_trip]" style="color:green">Oddano</td>
+                <td *ngIf="user.type == 1 && !submited_quizes[trip.idschool_trip]" style="color:red">Neoddano</td>
+                <td style="white-space: nowrap">
+                    <a routerLink="/school_trips/{{trip.idschool_trip}}" (click)="storeSchoolTrip(trip.idschool_trip)" class="btn btn-sm btn-primary mr-1" style="background-color: rgb(25, 108, 175);">Podrobno</a>
+
+                </td>
+            </tr>
+            <tr *ngIf="!school_trips">
+                <td colspan="4" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a routerLink="/school_trips/add/new"  *ngIf="user.type == 0" class="btn btn-sm btn-outline-danger mb-2">Dodaj ekskurzijo</a>
+</div>

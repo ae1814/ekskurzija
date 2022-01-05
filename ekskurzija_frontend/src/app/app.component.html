@@ -1,0 +1,25 @@
+<style>
+  nav {
+    background-color: rgb(25, 108, 175);
+  }
+  .navbar a {
+
+  }
+</style>
+
+<nav class="navbar navbar-expand" *ngIf="user">
+  <div class="navbar-nav">
+      <a class="nav-item nav-link " style="color:white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Domov</a>
+      <a class="nav-item nav-link" style="color:white" *ngIf="user.type == 0"  routerLink="/users" routerLinkActive="active">Učenci</a>
+      <a class="nav-item nav-link" style="color:white" *ngIf="user.type == 1"  routerLink="/users" routerLinkActive="active">Profil</a>
+      <a class="nav-item nav-link" style="color:white" *ngIf="user.type == 0"  routerLink="/users/edit/{{user.idperson}}" routerLinkActive="active">Profil</a>
+      <a class="nav-item nav-link" style="color:white" (click)="logout()">Izpis</a>
+  </div>
+</nav>
+
+<div class="app-container" [ngClass]="{ 'bg-light': user }">
+  <alert></alert>
+  <router-outlet></router-outlet>
+</div>
+
+
