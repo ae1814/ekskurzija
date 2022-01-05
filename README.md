@@ -15,13 +15,13 @@ V terminalu (Windows uporabniki - gitforwindows.org) se postavite v direktorij, 
 
 Aplikacija uporablja MySql bazo za shranjevanje podatkov. Prvi korak je inštalacija in priprava MySql Serverja:
 <br /><br />
-`3. Naloži iz spletne strani https://dev.mysql.com/downloads/mysql/ ter sledi navodilom inštalacije.`
+`3. Naloži iz spletne strani https://dev.mysql.com/downloads/mysql/ ter sledi navodilom inštalacije.` -> Za izbiro root passworda si preberite točko 5.
 <br /><br />
 Za vzpostavitev nove povezave ter opravljanje z samo bazo bomo uporabljali aplikacijo MySQL Workbench:
 <br /><br />
-`4. Naloži MySQL Workbench iz strani https://dev.mysql.com/downloads/workbench/`.
+`4. Naloži (če je prejšnji korak ni) MySQL Workbench iz strani https://dev.mysql.com/downloads/workbench/`.
 <br /><br />
-`5. Dodaj novo povezavo (MySql Connections +), ter dopolni/popravi vnosna polja glede na spodnjo sliko. Kot vidimo na sliki je Username = root, Password = root2021, Hostname = 127.0.0.1, Port = 3306. Če želite katero od navedenih vrednosti spremeniti, je potrebno spremeniti tudi ./ekskurzija_backend/.env datoteko (polja DB_HOST za Hostname, DB_USER za Username, DB_PORT za Port ter DB_PASS za Password).`![Image not found!](./general_images/mysql.png?raw=true "MySqlConnection")
+`5. (Točka 3 ponavadi vsebuje pripravo povezavo, če ne, sledite navodilom) Dodaj novo povezavo (MySql Connections +), ter dopolni/popravi vnosna polja glede na spodnjo sliko. Kot vidimo na sliki je Username = root, Password = root2021, Hostname = 127.0.0.1, Port = 3306. Če želite katero od navedenih vrednosti spremeniti, je potrebno spremeniti tudi ./ekskurzija_backend/.env datoteko (polja DB_HOST za Hostname, DB_USER za Username, DB_PORT za Port ter DB_PASS za Password).`![Image not found!](./general_images/mysql.png?raw=true "MySqlConnection")
 <br /><br />
 Ko imamo pripravljeno povezavo do MySql serverja, moramo dodati shemo, ki se nahaja v mysql mapi (./mysql/db_schema.sql). V MySql Workbench okolju:
 <br /><br />
