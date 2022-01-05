@@ -1,2 +1,0 @@
-# ekskurzija_backend
- 
