@@ -42,7 +42,7 @@ Po uspešni namestitvi pridobimo potrebna ukaza - npm in node!
 
 Naslednji korak je namestitev potrebnih knjižnic in modulov. Nadaljna navodila predvidevajo, da ste v terminalu (konzoli) trenutno v direktoriju `ekskurzija`:
 <br /><br />
-`9. cd ekskurzija_backend'
+`9. cd ekskurzija_backend`
 <br /><br />
 `10. npm install`
 <br /><br />
