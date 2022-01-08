@@ -1,3 +1,13 @@
+<style>
+    .checkmark {
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: rgb(25, 108, 175);
+      border: 1px solid rgb(25, 108, 175);
+      border-radius: 50%
+  }
+  </style>
 <h1 *ngIf="isAddMode" style="color: rgb(25, 108, 175);">Dodaj uporabnika</h1>
 <h1 *ngIf="!isAddMode" style="color: rgb(25, 108, 175);">Uredi uporabnika</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -6,7 +16,7 @@
             <label  for="name">Ime in Priimek</label>
             <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"/>
             <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
-                <div *ngIf="f['name'].errors['required']">Name is required</div>
+                <div *ngIf="f['name'].errors['required']">Ime je obvezno</div>
             </div>
         </div>
     </div>
@@ -15,7 +25,7 @@
             <label for="email">Email</label>
             <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
             <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['required']">Email je obvezen</div>
             </div>
         </div>
         <div class="form-group col">
@@ -31,22 +41,25 @@
         </div>
     </div>
     <div class="form-row">
-      <div class="form-group col">
-          <label  for="type1">Pedagog</label>
-          <input type="radio" formControlName="type" class="form-control" [value]="0" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }"/>
-          <label for="type1">Učenec</label>
-          <input type="radio" formControlName="type" class="form-control" [value]="1" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }"/>
-          <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
-              <div *ngIf="f['type'].errors['required']">type is required</div>
-          </div>
-      </div>
-  </div>
+        <div class="form-group col">
+          <label [for]="0">Pedagog
+            <input type="radio" formControlName="type" class="form-control checkmark" [value]="0" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }"/>
+            </label>
+            <br>
+            <label [for]="1"> Učenec
+            <input type="radio" style="size: 10px;" formControlName="type" class="form-control checkmark" [value]="1" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }"/>
+            </label>
+            <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
+                <div *ngIf="f['type'].errors['required']">Tip je obvezen!</div>
+            </div>
+        </div>
+    </div>
   <div class="form-group"   *ngIf="f['type'].value >= 0">
     <label  *ngIf="f['type'].value == 0" for="class">Razred (Primer vnosa: 7a;6b;3c)</label>
     <label  *ngIf="f['type'].value == 1" for="class">Razred (Primer vnosa: 7a)</label>
     <input type="text" formControlName="class" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['class'].errors }" />
     <div *ngIf="submitted && f['class'].errors" class="invalid-feedback">
-        <div *ngIf="f['class'].errors['required']">Class is required</div>
+        <div *ngIf="f['class'].errors['required']">Razredn je obvezen</div>
     </div>
   </div>
     <div class="form-group">

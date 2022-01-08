@@ -93,11 +93,11 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
+                    this.alertService.success('Uporabnik je uspešno Dodan', { keepAfterRouteChange: true });
                     this.router.navigate(['.', { relativeTo: this.route }]);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error("Napaka pri vnosu uporabnika!");
                     this.loading = false;
                 });
     }
